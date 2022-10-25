@@ -1,7 +1,7 @@
 # Poultry-Connoisseurs-Technology-Project-UI
 
 ## Description
-API for the movie app we will be making
+Eggcelent Reviewer will provide a platform for users to read about and review movies. You can register, login, and view your own and other user's profile pages. You will be able to read about and write reviews for movies. Reviews and users will be managed by admins.
 
 ## Executive Summary
 - Movie App will provide a platform for users to read about and review movies.
