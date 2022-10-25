@@ -1,7 +1,7 @@
 # Poultry-Connoisseurs-Technology-Project-UI
 
 ## Description
-Eggcellent Reviewer will provide a platform for users to read about and review movies. You can register, log in, and view your own and other users' profile pages. You will be able to read about and write reviews for movies. Reviews and users will be managed by admins.
+Eggcellent Reviewer will provide a platform for users to read about and review movies. Visitors can register, log in, or read about movies. After registering, Users will be able to view their own and other users' profile pages. They can also write reviews for movies. Reviews and users will be managed by admins.
 
 ## Executive Summary
 - Eggcellent Reviewer will provide a platform for users to read about and review movies.
