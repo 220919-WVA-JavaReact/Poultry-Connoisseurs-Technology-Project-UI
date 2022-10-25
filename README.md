@@ -1,16 +1,15 @@
 # Poultry-Connoisseurs-Technology-Project-UI
 
 ## Description
-Eggcelent Reviewer will provide a platform for users to read about and review movies. You can register, login, and view your own and other user's profile pages. You will be able to read about and write reviews for movies. Reviews and users will be managed by admins.
+Eggcellent Reviewer will provide a platform for users to read about and review movies. You can register, log in, and view your own and other users' profile pages. You will be able to read about and write reviews for movies. Reviews and users will be managed by admins.
 
 ## Executive Summary
-- Movie App will provide a platform for users to read about and review movies.
-- All users can read about and write reviews for movies.
-- Admins can login and delete inappropriate reviews or ban users.
+- Eggcellent Reviewer will provide a platform for users to read about and review movies.
+- All users can read about and write reviews for movies. Admins can log in and delete inappropriate reviews or ban users.
 
 ### All-Users User Stories
 - A user can register
-- A user can login/logout
+- A user can log in/logout
 - A user has a profile page
 - A user can see other people's profile pages
 - A user can add a movie to their 'watched' list
