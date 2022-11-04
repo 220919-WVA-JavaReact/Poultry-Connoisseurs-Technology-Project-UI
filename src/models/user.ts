@@ -6,6 +6,10 @@ export interface IUser {
     role: Role;
 }
 
+// export interface StateUser{
+//     IUser | undefined
+// }
+
 export interface ILoginProps{
     user: IUser | undefined,
     setUser: (nextUser: IUser) => void

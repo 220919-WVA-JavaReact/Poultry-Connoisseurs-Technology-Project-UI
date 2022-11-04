@@ -55,7 +55,7 @@ const Login = (props: ILoginProps ) => {
     };
     const login = async (e: SyntheticEvent ) => {
         e.preventDefault();
-        console.log(`username: ${username} | password: ${password}`)
+        console.log(`username: ${username} | password: ${password} || ${props.user}`)
         if(!username || !password || !username.trim() || !password.trim()){
             setErrorMessage('Must enter a valid username and password');
         } else {
@@ -63,15 +63,16 @@ const Login = (props: ILoginProps ) => {
             console.log(`logging in now! Username ${username} Password: ${password}`);
             setErrorMessage('logging in now!');
             try {
-                let response = await fetch(`http://localhost:8080/users`, {
+                let response = await fetch(`http://localhost:8080/auth`, {
                   //   -- where we put query link
                   method: "POST",
                   headers: {
-                      'Content-Type':'JSON'
+                    "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                      username,password
-                  })
+                    username,
+                    password,
+                  }),
                 });
             if(response.status === 200){
                 let data = await response.json()
@@ -91,10 +92,10 @@ const Login = (props: ILoginProps ) => {
                   //   -- where we put query link
                   method: "POST",
                   headers: {
-                      'Content-Type':'JSON'
+                      'Content-Type':'application/json'
                   },
                   body: JSON.stringify({
-                      username,password
+                      firstName, lastName, username,password
                   })
                 });
                 let data = await response.json();
@@ -104,7 +105,7 @@ const Login = (props: ILoginProps ) => {
     }
 
   return props.user ? (
-    <Navigate to="/dashboard" />
+    <Navigate to="/" />
   ) : (
     <>
       <h4>Log in to egg</h4>

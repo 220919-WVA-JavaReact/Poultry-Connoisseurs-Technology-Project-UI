@@ -1,4 +1,5 @@
 import React from 'react';
+import { Role } from "./models/role";
 import logo from './logo.svg';
 import './App.css';
 import Login from './components/Login/Login';
@@ -10,15 +11,22 @@ import Home from './components/Home/Home';
 
 
 function App() {
-
-      const [user, setUser] = React.useState<User>();//?? need to implement interface somehow. <IUser>
+  const [user, setUser] = React.useState<User>(); //?? need to implement interface somehow. <IUser>
+  /* {
+        id: -1,
+        username: "",
+        role: Role.BASIC_USER,
+      } */
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Home user={user} setUser={setUser} />} />
-          <Route path="/login" element={<Login user={user} setUser={setUser} />} />
+          <Route
+            path="/login"
+            element={<Login user={user} setUser={setUser} />}
+          />
           <Route path="dashboard" element={<Dashboard user={user} />} />
         </Routes>
       </BrowserRouter>

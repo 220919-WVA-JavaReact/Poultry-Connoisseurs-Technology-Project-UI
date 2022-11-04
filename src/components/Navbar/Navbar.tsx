@@ -13,60 +13,87 @@ import MenuItem from "@mui/material/MenuItem";
 import EggIcon from "@mui/icons-material/Egg";
 import SendIcon from "@mui/icons-material/Send";
 import {Link} from 'react-router-dom';
+import { ILoginProps, User } from "../../models/user";
+import { Role } from "../../models/role";
 
-const Navbar = () => {
-return (
-  <AppBar position="static">
-    <Container maxWidth="xl">
-      <Toolbar disableGutters>
-        <EggIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-        <Typography
-          variant="h6"
-          noWrap
-          component="a"
-          href="/"
-          sx={{
-            mr: 2,
-            display: { xs: "none", md: "flex" },
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-          }}
-        >
-          Egg
-        </Typography>
+const Navbar = (props: ILoginProps) => {
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <EggIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            Egg
+          </Typography>
 
-        <EggIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-        <Typography
-          variant="h5"
-          noWrap
-          component="a"
-          href=""
-          sx={{
-            mr: 2,
-            display: { xs: "flex", md: "none" },
-            flexGrow: 1,
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-          }}
-        >
-          LOGO
-        </Typography>
+          <EggIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
 
-        <Box sx={{ flexGrow: 0, marginLeft: "auto" }}>
-          <Button variant="contained" color="secondary" endIcon={<SendIcon />}>
-            <Link to="/login" style={{color:'white', textDecoration:'none'}} >Login</Link>
-          </Button>
-        </Box>
-      </Toolbar>
-    </Container>
-  </AppBar>
-);
+          <Box sx={{ flexGrow: 0, marginLeft: "auto" }}>
+            {!props.user ? (
+              <Button
+                variant="contained"
+                color="secondary"
+                endIcon={<SendIcon />}
+              >
+                <Link
+                  to="/login"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Login
+                </Link>
+              </Button>
+            ) : ''} {
+                /* (
+              <Button
+                onClick={() =>
+                  props.setUser({
+                    id: -1,
+                    username: "",
+                    role: Role.BASIC_USER,
+                  })
+                }
+              >
+                Logout
+              </Button>
+            )} */
+            }
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 };
 
 export default Navbar;
