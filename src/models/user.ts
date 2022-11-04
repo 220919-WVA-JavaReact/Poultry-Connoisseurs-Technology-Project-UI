@@ -6,6 +6,11 @@ export interface IUser {
     role: Role;
 }
 
+export interface ILoginProps{
+    user: IUser | undefined,
+    setUser: (nextUser: IUser) => void
+}
+
 export type UserType = {
     id: number;
     username: string;
