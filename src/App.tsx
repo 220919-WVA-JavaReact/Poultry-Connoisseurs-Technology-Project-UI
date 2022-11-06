@@ -11,12 +11,8 @@ import Home from './components/Home/Home';
 
 
 function App() {
-  const [user, setUser] = React.useState<User>(); //?? need to implement interface somehow. <IUser>
-  /* {
-        id: -1,
-        username: "",
-        role: Role.BASIC_USER,
-      } */
+  const [user, setUser] = React.useState<User | undefined>(); //?? need to implement interface somehow. <IUser>
+
   return (
     <div className="App">
       <BrowserRouter>

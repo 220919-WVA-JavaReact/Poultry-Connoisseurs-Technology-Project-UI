@@ -219,6 +219,8 @@ const Login = (props: ILoginProps ) => {
               </Grid>
               <Grid item>
                 <Button
+                variant='contained'
+                color='secondary'
                   onClick={() => {
                     setSignIn(!signIn);
                   }}

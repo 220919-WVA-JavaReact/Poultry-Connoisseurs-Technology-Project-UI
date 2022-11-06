@@ -74,21 +74,15 @@ const Navbar = (props: ILoginProps) => {
                   Login
                 </Link>
               </Button>
-            ) : ''} {
-                /* (
+            ) : (
               <Button
-                onClick={() =>
-                  props.setUser({
-                    id: -1,
-                    username: "",
-                    role: Role.BASIC_USER,
-                  })
-                }
+                variant="contained"
+                color="secondary"
+                onClick={() => props.setUser(undefined)}
               >
                 Logout
               </Button>
-            )} */
-            }
+            )}
           </Box>
         </Toolbar>
       </Container>

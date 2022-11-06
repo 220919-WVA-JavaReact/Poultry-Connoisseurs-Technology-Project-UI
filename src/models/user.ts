@@ -12,7 +12,7 @@ export interface IUser {
 
 export interface ILoginProps{
     user: IUser | undefined,
-    setUser: (nextUser: IUser) => void
+    setUser: (nextUser: IUser | undefined) => void
 }
 
 export type UserType = {
