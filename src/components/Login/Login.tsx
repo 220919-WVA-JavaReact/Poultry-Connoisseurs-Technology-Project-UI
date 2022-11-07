@@ -15,19 +15,22 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 
-
+//get props { user, setUser }
 const Login = (props: ILoginProps ) => {
-
+    //signIn state used to dynamically switch page look from 'sign in' to 'sign up'(register)
     const [signIn, setSignIn] = useState(true);
+
+    //These fields are for the input components. TODO: refactor them to use 1 useState with an object, using ... syntax to update.
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
     const [confPassword, setConfPassword] = useState("");
+
+    //Message displayed under the signin functionality. Dynamically updates to let user know what's going on.
     const [errorMessage, setErrorMessage] = useState('');
 
-
+    //functions to update state fields for the form inputs. TODO: refactor to use 1 function and dynamically check field.
     const updateUsername = (e: SyntheticEvent )=> {
         console.log(`previous: ${username}`);
         setUsername((e.target as HTMLInputElement).value);
@@ -53,18 +56,26 @@ const Login = (props: ILoginProps ) => {
       setConfPassword((e.target as HTMLInputElement).value);
       console.log(`updated: ${password}`);
     };
+
+
+    //Login function. Checks to see if user is in 'sign in' or 'sign up' mode, sends corresponding http request to backend.
     const login = async (e: SyntheticEvent ) => {
         e.preventDefault();
         console.log(`username: ${username} | password: ${password} || ${props.user}`)
+
+        //Check to see if username/password fields are properly filled out.
         if(!username || !password || !username.trim() || !password.trim()){
             setErrorMessage('Must enter a valid username and password');
         } else {
+            
+            //Check to see if user is in 'sign in' or 'sign up' mode.
             if(signIn){
             console.log(`logging in now! Username ${username} Password: ${password}`);
+
+            //Updates message to show that login is in progress.
             setErrorMessage('logging in now!');
             try {
                 let response = await fetch(`http://localhost:8080/auth`, {
-                  //   -- where we put query link
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -74,22 +85,28 @@ const Login = (props: ILoginProps ) => {
                     password,
                   }),
                 });
+
+                //Functionality to run if process succeeds. Will set the user using the recieved UserDTO from backend.
             if(response.status === 200){
                 let data = await response.json()
                 console.log(data)
                 props.setUser(data);
             } else{
+
+                //Runs if sign-in fails for any reason.
                 setErrorMessage(`Could not validate credentials : ERROR CODE ${response.status}`);
             }
             } 
             
             catch (error) {
+                //Runs if we can't connect to server.
                 setErrorMessage('Unexpected error contacting server.');
             }
         } else {
+
+            //Sign up functionality, runs if 'signIn' state is false.
             console.log(`Signing up for your account now! ${password} = ${confPassword} ? `)
             let response = await fetch(`http://localhost:8080/users`, {
-                  //   -- where we put query link
                   method: "POST",
                   headers: {
                       'Content-Type':'application/json'
@@ -100,15 +117,17 @@ const Login = (props: ILoginProps ) => {
                 });
                 let data = await response.json();
                 console.log(data);
+                //TODO: automatically sign in user upon registration. Only recieves confirmation of sign up as of now.
         }
         }
     }
-
+//Check if user exists - if so, redirect to home component. When sign in succeeds, will automatically redirect to home because user state is updated.
   return props.user ? (
     <Navigate to="/" />
   ) : (
     <>
-      <h4>Log in to egg</h4>
+        {/* Dynamically renders component using ternary operator to check if 'signIn' state is true or false. */}
+      <h4>{signIn? 'Log in' : 'Sign up'} to egg</h4>
       <div>
         <input
           type="text"

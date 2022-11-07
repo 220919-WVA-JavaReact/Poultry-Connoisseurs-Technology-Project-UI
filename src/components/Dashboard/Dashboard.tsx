@@ -8,6 +8,7 @@ interface IUserProps{
 }
 
 const Dashboard = (props: IUserProps ) => {
+    //Dashboard component - leftover component from an example. Could possibly convert it to movies list component?
 
   return (
     <Stack direction="row" spacing={1}>{props.user ? Object.keys(props.user).filter(x=> x=='Search').map(x=> { 

@@ -16,50 +16,37 @@ import {Link} from 'react-router-dom';
 import { ILoginProps, User } from "../../models/user";
 import { Role } from "../../models/role";
 
+//get props { user, setUser }
 const Navbar = (props: ILoginProps) => {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <EggIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Egg
-          </Typography>
-
-          <EggIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-
+          {/* EggIcon - from material ui icons */}
+          <Box sx={{display: "flex", flexGrow: 0, marginRight:"auto", alignItems:"center"}}>
+            <EggIcon fontSize='large' sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                fontSize:"2rem"
+              }}
+            >
+              Egg
+            </Typography>
+          </Box>
+              {/* The 'login' button below checks if there is a user signed in or not. If a user isn't 
+              signed in, it will display a button with login text and when clicked will navigate to the login page.
+              If there is a user logged in, a log out button appears instead, and will remove theuser from the state if clicked. */}
           <Box sx={{ flexGrow: 0, marginLeft: "auto" }}>
             {!props.user ? (
               <Button
