@@ -123,7 +123,7 @@ const Login = (props: ILoginProps ) => {
     }
 //Check if user exists - if so, redirect to home component. When sign in succeeds, will automatically redirect to home because user state is updated.
   return props.user ? (
-    <Navigate to="/" />
+    <Navigate to="/profile" />
   ) : (
     <>
         {/* Dynamically renders component using ternary operator to check if 'signIn' state is true or false. */}

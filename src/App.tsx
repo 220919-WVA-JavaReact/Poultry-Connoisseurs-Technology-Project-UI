@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import { User } from './models/user';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
+import ProfileWelcome from './components/ProfileWelcome/profile-welcome';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             element={<Login user={user} setUser={setUser} />}
           />
           <Route path="dashboard" element={<Dashboard user={user} />} />
+          <Route path="profile" element={<ProfileWelcome user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>
