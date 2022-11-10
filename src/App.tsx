@@ -1,24 +1,33 @@
 import React from 'react';
+import { Role } from "./models/role";
 import logo from './logo.svg';
 import './App.css';
+import Login from './components/Login/Login';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard/Dashboard';
+import { User } from './models/user';
+import Navbar from './components/Navbar/Navbar';
+import Home from './components/Home/Home';
+import ProfileWelcome from './components/ProfileWelcome/profile-welcome';
+
 
 function App() {
+  const [user, setUser] = React.useState<User | undefined>(); //?? need to implement interface somehow. <IUser>
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Navbar user={user} setUser={setUser} />
+        <Routes>
+          <Route path="/" element={<Home user={user} setUser={setUser} />} />
+          <Route
+            path="/login"
+            element={<Login user={user} setUser={setUser} />}
+          />
+          <Route path="dashboard" element={<Dashboard user={user} />} />
+          <Route path="profile" element={<ProfileWelcome user={user} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
