@@ -9,6 +9,7 @@ import { User } from './models/user';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import ProfileWelcome from './components/ProfileWelcome/profile-welcome';
+import MoviePage from './components/MoviePage/movie-page';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           />
           <Route path="dashboard" element={<Dashboard user={user} />} />
           <Route path="profile" element={<ProfileWelcome user={user} />} />
+          <Route path="movies/:id" element={<MoviePage user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>
