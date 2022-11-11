@@ -4,6 +4,9 @@ import Paper from '@mui/material/Paper';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { useParams } from "react-router-dom";
+import { Movie } from "../../models/movie";
+import { useEffect, useState } from "react";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
 
 interface IUserProps{
@@ -29,13 +32,39 @@ const Item = styled(Paper)(({ theme }) => ({
   //need to set up a route in the app, to catch that.
 
 function MoviePage (props : IUserProps) {
-    
 
+    const [movie, setMovie] = useState<Movie | undefined>()
     const { id } = useParams()
+
+    useEffect(() => {
+
+        const fetchData = async ()=>{
+            let response = await fetch(`http://localhost:8080/movies/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            if (response.status === 200) {
+                let data = await response.json();
+                console.log(data);
+                setMovie(data);
+        }   else {
+            console.log(
+                `Could not find movie : ERROR CODE ${response.status}`
+            );
+        }
+    }
+    fetchData();     
+    },[])
+
+
+
+
     return (
         <div>
             <Stack spacing={2}>
-                <Item>Item 1</Item>
+                <Item>{movie?.title}</Item>
                 <Item>Item 2</Item>
                 <Item>Item 3</Item>
             </Stack>
