@@ -2,6 +2,7 @@ import { Container } from '@material-ui/core';
 import { Typography } from '@mui/material';
 import React from 'react'
 import { IinfoProps } from '../../models/infoprops';
+import MovieList from '../MovieList/MovieList';
 const Home = ( props: IinfoProps ) => {
   React.useEffect(()=>{
     
@@ -30,7 +31,7 @@ const Home = ( props: IinfoProps ) => {
   return (
     <Container
       maxWidth="lg"
-      style={{ backgroundColor: "#bff1ff", height: "100vh" }}
+      style={{ backgroundColor: "#bff1ff", minHeight: "100vh" }}
     >
 
       {/* Check to see if user is signed in or not, will eventually get rid of it once we have UI more developed. */}
@@ -42,13 +43,7 @@ const Home = ( props: IinfoProps ) => {
 
       {/* Here is where SEARCHBAR and MOVIES components would go - Perhaps use dashboard as MOVIES */}
       <h2>LATEST BESTEST AMAZINGEST MOVIES</h2>
-      {props.movies
-        ? props.movies.map((x) => (
-            <div
-              key={x.id + 1}
-            >{`${x.id} ${x.title} ${x.runtime} ${x.stars} ${x.rating}`}</div>
-          ))
-        : ""}
+      <MovieList movies={props.movies} setMovies={props.setMovies}/>
     </Container>
   );
 };
