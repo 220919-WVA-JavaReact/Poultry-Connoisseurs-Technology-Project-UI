@@ -23,28 +23,34 @@ const Navbar = (props: ILoginProps) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* EggIcon - from material ui icons */}
-          <Box sx={{display: "flex", flexGrow: 0, marginRight:"auto", alignItems:"center"}}>
-            <EggIcon fontSize='large' sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 0,
+              marginRight: "auto",
+              alignItems: "center",
+            }}
+          >
+            <EggIcon
+              fontSize="large"
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            />
+            <Link
+              to="/"
+              style={{
+                display: "flex",
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
-                fontSize:"2rem"
+                fontSize: "2rem",
               }}
             >
               Egg
-            </Typography>
+            </Link>
           </Box>
-              {/* The 'login' button below checks if there is a user signed in or not. If a user isn't 
+          {/* The 'login' button below checks if there is a user signed in or not. If a user isn't 
               signed in, it will display a button with login text and when clicked will navigate to the login page.
               If there is a user logged in, a log out button appears instead, and will remove theuser from the state if clicked. */}
           <Box sx={{ flexGrow: 0, marginLeft: "auto" }}>
@@ -67,7 +73,9 @@ const Navbar = (props: ILoginProps) => {
                 color="secondary"
                 onClick={() => props.setUser(undefined)}
               >
-                Logout
+                <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+                  Logout
+                </Link>
               </Button>
             )}
           </Box>

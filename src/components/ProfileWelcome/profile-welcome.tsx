@@ -3,7 +3,6 @@ import { IUser } from '../../models/user';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import SuperheroImage from '../../assets/superheroes-at-the-movies-min.jpeg';
 
@@ -23,8 +22,8 @@ function ProfileWelcome(props : IUserProps) {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         backgroundImage: `url(${SuperheroImage})`,
-        maxWidth: '75%',
-        height: '450px',
+        maxWidth: '100%',
+        height: '700px',
         margin: 'auto'
       }}
     >
