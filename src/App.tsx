@@ -1,5 +1,6 @@
 import React from "react";
 import { Role } from "./models/role";
+
 import logo from "./logo.svg";
 import "./App.css";
 import Login from "./components/Login/Login";
@@ -10,6 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import ProfileWelcome from "./components/ProfileWelcome/profile-welcome";
 import { Movie } from "./models/movie";
+import MoviePage from "./components/MoviePage/movie-page";
 
 function App() {
   const [user, setUser] = React.useState<User | undefined>(); //?? need to implement interface somehow. <IUser>
@@ -27,6 +29,7 @@ function App() {
           />
           <Route path="dashboard" element={<Dashboard user={user} />} />
           <Route path="profile" element={<ProfileWelcome user={user} />} />
+          <Route path="movies/:id" element={<MoviePage user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>
