@@ -127,24 +127,7 @@ const Login = (props: ILoginProps ) => {
   ) : (
     <>
         {/* Dynamically renders component using ternary operator to check if 'signIn' state is true or false. */}
-      <h4>{signIn? 'Log in' : 'Sign up'} to egg</h4>
-      <div>
-        <input
-          type="text"
-          id="login-username"
-          placeholder="Enter your username"
-          onChange={updateUsername}
-        />
-        <input
-          type="password"
-          id="login-password"
-          placeholder="Enter your password"
-          onChange={updatePassword}
-        />
-        <button id="login-button" onClick={login}>
-          Login
-        </button>
-      </div>
+      
       <div>
         <p>{errorMessage}</p>
       </div>
