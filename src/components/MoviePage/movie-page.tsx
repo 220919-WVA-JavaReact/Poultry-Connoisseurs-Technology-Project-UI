@@ -12,7 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import "./MoviePage.css";
 import Box from '@mui/material/Box';
-import { padding, palette } from '@mui/system';
+import { padding, palette, textAlign } from '@mui/system';
+import { Typography } from "@mui/material";
 
 
 interface IUserProps{
@@ -92,25 +93,33 @@ function MoviePage (props : IUserProps) {
             <Stack spacing={2}>
                 <Item>{movie?.title}</Item>
                 <Item>submit review</Item>
-                <Item style={{padding: 0}}>
-                        {reviews?.map(x => 
-                        (<div key={x.id+1}>
-                            <Box sx={{ bgcolor: 'text.primary'}}>
-                            <div className="cont1">
-                                <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
-                                    <div className="userReview">
-                                        {x.authorUsername}
-                                        <p>{x.title}</p>
-                                        <p>{x.summary}</p>
-                                        <hr/>
-                                    </div>
+                <Box sx={{ bgcolor: 'text.primary'}}>
+                    <Item style={{padding: 0}}>
+                        <Box sx={{ bgcolor: 'text.primary'}}>                    
+                        <p className="titleReview"><h3><b>Reviews:</b></h3></p>
+                        <hr/>
+                            {reviews?.map(x => 
+                            (<div key={x.id+1}>
+                            
                                 
-                            </div>
-                            </Box>
+                                <div className="cont1">
+                                    <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                    <div className="divider"></div>
+                                        <div className="userReview" style={{width:"60%"}}>
+                                            <p><h5>Review by: <b>{x.authorUsername}</b></h5></p>
+                                            <p><h3>{x.title}</h3></p>
+                                            <Typography>{x.summary}</Typography>
+                                            <hr/>
+                                        </div>
+                                
+                                </div>
+                            
                 
                     
-                    </div>))}
-                </Item>
+                        </div>))}
+                        </Box>
+                    </Item>
+                    </Box>
             </Stack>
             <p>{id}</p>
             <p></p>
