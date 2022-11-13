@@ -8,6 +8,9 @@ import { Movie } from "../../models/movie";
 import { useEffect, useState } from "react";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 import { Reviews } from "../../models/reviews";
+import Avatar from '@mui/material/Avatar';
+import { deepOrange, deepPurple } from '@mui/material/colors';
+import "./MoviePage.css";
 
 
 interface IUserProps{
@@ -88,10 +91,21 @@ function MoviePage (props : IUserProps) {
                 <Item>{movie?.title}</Item>
                 <Item>submit review</Item>
                 <Item>
-                {reviews?.map(x => (<div key={x.id+1}>
-                    <p>{x.authorUsername}</p>
-                    <p>{x.title}</p>
-                    <p>{x.summary}</p>
+                        {reviews?.map(x => 
+                        (<div key={x.id+1}>
+                        <div className="cont1">
+                            <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                <div className="userReview">
+                                    {x.authorUsername}
+                                    <p>{x.title}</p>
+                                    <p>{x.summary}</p>
+                                    <hr/>
+                                </div>
+                                
+                        </div>
+                    
+                
+                    
                     </div>))}
                 </Item>
             </Stack>
