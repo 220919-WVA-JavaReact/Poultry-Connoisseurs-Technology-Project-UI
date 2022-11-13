@@ -3,17 +3,18 @@ import { User } from "./user";
 
 export class Reviews{
     id: string;
-    user: User;
+    userID: string;
+    authorUsername: string;
     title: string;
     summary: string;
-    movie: Movie;
 
-    constructor(id: string, user: User, title: string, summary: string, movie: Movie){
+
+    constructor(id: string, userID: string, authorUsername: string, title: string, summary: string) {
         this.id = id;
-        this.user = user;
+        this.userID = userID;
+        this.authorUsername = authorUsername;
         this.title = title;
         this.summary = summary;
-        this.movie = movie;
     }
 }
 

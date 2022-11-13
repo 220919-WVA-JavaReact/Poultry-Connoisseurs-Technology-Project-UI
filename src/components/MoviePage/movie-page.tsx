@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { Movie } from "../../models/movie";
 import { useEffect, useState } from "react";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
+import { Reviews } from "../../models/reviews";
 
 
 interface IUserProps{
@@ -35,6 +36,7 @@ function MoviePage (props : IUserProps) {
 
     const [movie, setMovie] = useState<Movie | undefined>()
     const { id } = useParams()
+    const [reviews, setReviews] = useState<Reviews[] | undefined>()
 
     useEffect(() => {
 
@@ -56,19 +58,45 @@ function MoviePage (props : IUserProps) {
         }
     }
     fetchData();     
+
+        const fetchData2 = async ()=>{
+            let response = await fetch(`http://localhost:8080/reviews/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            if (response.status === 200) {
+                let data = await response.json();
+                console.log(data);
+                setReviews(data);
+            } else {
+                console.log(
+                    `Could not find reviews : ERROR CODE ${response.status}`
+                );
+            }
+        }
+        fetchData2();
     },[])
-
-
+                
+            
 
 
     return (
         <div>
             <Stack spacing={2}>
                 <Item>{movie?.title}</Item>
-                <Item>Item 2</Item>
-                <Item>Item 3</Item>
+                <Item>submit review</Item>
+                <Item>
+                {reviews?.map(x => (<div key={x.id+1}>
+                    <p>{x.authorUsername}</p>
+                    <p>{x.title}</p>
+                    <p>{x.summary}</p>
+                    </div>))}
+                </Item>
             </Stack>
             <p>{id}</p>
+            <p></p>
         </div>
     )
 }
