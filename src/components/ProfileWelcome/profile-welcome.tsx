@@ -1,16 +1,16 @@
 import React from 'react';
-import { IUser } from '../../models/user';
+import { UserProfile } from '../../models/user';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import SuperheroImage from '../../assets/superheroes-at-the-movies-min.jpeg';
 
-interface IUserProps{
-    user: IUser | undefined
+interface ProfileUserProps{
+    user: UserProfile | undefined;
 }
 
-function ProfileWelcome(props : IUserProps) {
+function ProfileWelcome(props : ProfileUserProps) {
   return (
     <Paper
       sx={{
@@ -49,7 +49,7 @@ function ProfileWelcome(props : IUserProps) {
             }}
           >
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-              Welcome {props.user?.username}!
+              Welcome {props.user?.first} {props.user?.last}!
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
               Lorem ipsum dolor sit amet
