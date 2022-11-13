@@ -11,6 +11,8 @@ import { Reviews } from "../../models/reviews";
 import Avatar from '@mui/material/Avatar';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import "./MoviePage.css";
+import Box from '@mui/material/Box';
+import { padding, palette } from '@mui/system';
 
 
 interface IUserProps{
@@ -86,24 +88,25 @@ function MoviePage (props : IUserProps) {
 
 
     return (
-        <div>
+        <div className="body">
             <Stack spacing={2}>
                 <Item>{movie?.title}</Item>
                 <Item>submit review</Item>
-                <Item>
+                <Item style={{padding: 0}}>
                         {reviews?.map(x => 
                         (<div key={x.id+1}>
-                        <div className="cont1">
-                            <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
-                                <div className="userReview">
-                                    {x.authorUsername}
-                                    <p>{x.title}</p>
-                                    <p>{x.summary}</p>
-                                    <hr/>
-                                </div>
+                            <Box sx={{ bgcolor: 'text.primary'}}>
+                            <div className="cont1">
+                                <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                    <div className="userReview">
+                                        {x.authorUsername}
+                                        <p>{x.title}</p>
+                                        <p>{x.summary}</p>
+                                        <hr/>
+                                    </div>
                                 
-                        </div>
-                    
+                            </div>
+                            </Box>
                 
                     
                     </div>))}
