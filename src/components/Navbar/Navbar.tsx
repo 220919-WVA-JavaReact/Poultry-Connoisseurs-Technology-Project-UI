@@ -12,9 +12,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import EggIcon from "@mui/icons-material/Egg";
 import SendIcon from "@mui/icons-material/Send";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { ILoginProps, User } from "../../models/user";
 import { Role } from "../../models/role";
+import { ButtonGroup } from "@mui/material";
 
 //get props { user, setUser }
 const Navbar = (props: ILoginProps) => {
@@ -68,15 +69,29 @@ const Navbar = (props: ILoginProps) => {
                 </Link>
               </Button>
             ) : (
-              <Button
+              <ButtonGroup
                 variant="contained"
                 color="secondary"
-                onClick={() => props.setUser(undefined)}
+                aria-label="contained primary button group"
               >
-                <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-                  Logout
-                </Link>
-              </Button>
+                <Button>One</Button>
+                <Button>
+                  <Link
+                    to={``}
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    Profile
+                  </Link>
+                </Button>
+                <Button onClick={() => props.setUser(undefined)}>
+                  <Link
+                    to="/"
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    Logout
+                  </Link>
+                </Button>
+              </ButtonGroup>
             )}
           </Box>
         </Toolbar>

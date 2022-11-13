@@ -1,0 +1,41 @@
+.cont1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #9ab;
+    justify-content: center;    
+
+}
+
+.titleReview {
+    color: #9ab;
+}
+
+.avatar {
+    position: relative;
+    bottom: 40px;
+    left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+}
+
+.userReview {
+    /* border-left: solid white 1px; */
+    text-align: left;
+    margin-left: 20px;
+}
+
+.css-1633um2-MuiPaper-root {
+    padding: 0;
+}
+
+.divider {
+    width: 2px;
+    margin: 6px 0;
+    background: white;
+    
+  }
+
+    /* background-color: #2c3440; */
