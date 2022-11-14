@@ -74,10 +74,18 @@ const Navbar = (props: ILoginProps) => {
                 color="secondary"
                 aria-label="contained primary button group"
               >
-                <Button>One</Button>
+                {(props.user.role == 'HEN' || props.user.role == 'ROOSTER') ? (<Button>
+                  <Link
+                    to={`/admin`}
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    Admin
+                  </Link>
+                  </Button>
+                  ) : ''}
                 <Button>
                   <Link
-                    to={``}
+                    to='profile'
                     style={{ color: "white", textDecoration: "none" }}
                   >
                     Profile
