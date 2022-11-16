@@ -1,5 +1,6 @@
 export enum Role{
-    BASIC_USER = 'BASIC_USER',
-    ADMIN = 'ADMIN',
-    MANAGER = 'MANAGER'
+    EGG = 'EGG',
+    CHICK = 'CHICK',
+    HEN = 'HEN',
+    ROOSTER = 'ROOSTER'
 }
