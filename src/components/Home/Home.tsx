@@ -30,7 +30,7 @@ const Home = ( props: IinfoProps ) => {
   
   return (
     <Container
-      maxWidth="lg"
+      maxWidth="md"
       style={{ backgroundColor: "#bff1ff", minHeight: "100vh" }}
     >
 

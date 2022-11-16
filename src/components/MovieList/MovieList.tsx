@@ -17,7 +17,7 @@ const MovieList = (props: IMovieProps) => {
   return (
     <Grid
       container
-      direction="column"
+      direction="row"
       justifyContent="flex-start"
       alignItems="center"
       spacing={3}
