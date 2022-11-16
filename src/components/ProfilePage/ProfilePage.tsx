@@ -2,7 +2,6 @@ import { Card } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { UserProfile } from '../../models/user';
 import ProfileBanner from '../ProfileBanner/ProfileBanner';
-import ProfileCard from '../ProfileCard/profile-card';
 import ProfileWelcome from '../ProfileWelcome/profile-welcome';
 import WatchListMain from '../WatchList/WatchListMain';
 
