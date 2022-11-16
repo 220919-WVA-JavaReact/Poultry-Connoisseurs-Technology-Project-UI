@@ -17,8 +17,8 @@ function ProfileAvatar(props: ProfileUserProps) {
                     width: 200,
                     height: 200,
                     position: 'absolute',
-                    left: '43%',
-                    top: '75%'
+                    left: '45%',
+                    top: '60%'
 
                 }}
                 alt="Default Profile Image"

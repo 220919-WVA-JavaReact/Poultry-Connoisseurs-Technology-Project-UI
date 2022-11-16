@@ -40,7 +40,7 @@ const Slider: React.FC<SliderProps> = ({
         const resizeObserver = new ResizeObserver(entries => {
             setScrollSize(entries[0].contentRect.width);
         });
-        //resizeObserver.observe(sliderRef.current); FIX THIS AT END!!!!!
+        resizeObserver.observe(sliderRef.current!); 
     }, [sliderRef]);
 
     // Position slider on resize

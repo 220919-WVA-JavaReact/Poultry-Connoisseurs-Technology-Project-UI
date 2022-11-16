@@ -43,9 +43,9 @@ function App() {
           <Route
             path="/admin"
             element={<Admin user={user} setUser={setUser} />}
-          />
+          />   
           <Route path="dashboard" element={<Dashboard user={user} />} />
-          <Route path="profile" element={<ProfilePage user={userProfile} />} />
+          <Route path="profile" element={<ProfilePage user={user} setUser={setUser}/>} />
           <Route path="movies/:id" element={<MoviePage user={user} setUser={setUser} />} />
         </Routes>
       </BrowserRouter>
