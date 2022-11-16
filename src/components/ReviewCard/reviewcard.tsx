@@ -1,10 +1,10 @@
 import * as React from "react";
 import { styled, Card, CardHeader, CardActions, CardContent, CardMedia, Collapse, Avatar, Button, Typography } from '@mui/material';
-import IconButton, { IconButtonProps } from "@mui/material";
-import EditIcon from '@mui/icons-material';
-import DeleteIcon from '@mui/icons-material';
-import ExpandMoreIcon from '@mui/icons-material';
-import MoreVertIcon from '@mui/icons-material';
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SuperheroImage from "../../assets/superheroes-at-the-movies-min.jpeg";
 
 interface IReviewCardProps {
