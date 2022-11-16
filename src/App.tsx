@@ -29,7 +29,7 @@ function App() {
           />
           <Route path="dashboard" element={<Dashboard user={user} />} />
           <Route path="profile" element={<ProfileWelcome user={user} />} />
-          <Route path="movies/:id" element={<MoviePage user={user} />} />
+          <Route path="movies/:id" element={<MoviePage user={user} setUser={setUser} />} />
         </Routes>
       </BrowserRouter>
     </div>
