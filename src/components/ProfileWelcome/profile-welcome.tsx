@@ -19,7 +19,7 @@ function ProfileWelcome(props : ProfileUserProps) {
         backgroundPosition: 'center',
         backgroundImage: `url(${SuperheroImage})`,
         maxWidth: '100%',
-        height: '700px',
+        height: '600px',
         margin: 'auto'
       }}
     >

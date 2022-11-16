@@ -1,6 +1,7 @@
 import { Card } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { UserProfile } from '../../models/user';
+import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
 import ProfileBanner from '../ProfileBanner/ProfileBanner';
 import ProfileWelcome from '../ProfileWelcome/profile-welcome';
 import WatchListMain from '../WatchList/WatchListMain';
@@ -38,6 +39,7 @@ function ProfilePage(props: ProfileUserProps) {
     return (
         <Card sx={{ backgroundColor: '#333333'}}>
             <ProfileWelcome user={userProfile} />
+            <ProfileAvatar user={userProfile} />
             <ProfileBanner user={userProfile} />
             <WatchListMain />
         </Card>
