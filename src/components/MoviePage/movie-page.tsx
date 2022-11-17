@@ -133,7 +133,7 @@ function MoviePage(props: ILoginProps) {
             toggleFavorite();
         }
     };
-
+    
     return (
         <div className="body">
             <Stack spacing={0}>
