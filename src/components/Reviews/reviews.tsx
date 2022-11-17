@@ -1,15 +1,14 @@
 import React, {useEffect, useState } from 'react';
 import { Container, Box, CssBaseline, Card, CardContent, CardMedia } from '@mui/material';
 import { Movie } from '../../models/movie';
-import { User } from '../../models/user';
+import {  ILoginProps, IUser } from "../../models/user";
 import AddReview from '../AddReview/addreview';
 import ReviewCard from '../ReviewCard/reviewcard';
 import { AddCard } from '@mui/icons-material';
 
-interface IReviewProps {
+interface IReviewProps extends ILoginProps {
     id: number | string | undefined;
-    currentUser: User;
-    setCurrentUser(nextUser: User) : void;
+    user: IUser;
     movie: Movie;
 }
 
@@ -24,7 +23,7 @@ function Reviews(props: IReviewProps){
                 method: 'GET',
                 headers: {
                     'Content-Type': "application/json",
-                    'Role' : `${props.currentUser?.role}`,
+                    'Role' : `${props.user?.role}`,
                     'Access-Control-Allow-Origin' : '*',
                 },
             }
@@ -44,10 +43,10 @@ function Reviews(props: IReviewProps){
                     <Card>
                         <CardContent>
                             <AddReview
-                                currentUser={props.currentUser}
-                                movie_id={props.movie.id}
-                                movie={props.movie}
-                                getReviews={getReviews}
+                            currentUser={props.user}
+                            movieId={props.movie.id}
+                            movie={props.movie}
+                            getReviews={getReviews}
                             />
                             {reviews.map((review: any) => {
                                 return (
