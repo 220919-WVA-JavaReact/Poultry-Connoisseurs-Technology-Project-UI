@@ -21,7 +21,7 @@ type Props = {
     movie: Movie;
 };
 
-const CharacterCard: React.FC<Props> = ({ movie }) => {
+const MovieCard: React.FC<Props> = ({ movie }) => {
     const classes = useStyles();
 
     return (
@@ -43,4 +43,4 @@ const CharacterCard: React.FC<Props> = ({ movie }) => {
     );
 };
 
-export default CharacterCard;
+export default MovieCard;

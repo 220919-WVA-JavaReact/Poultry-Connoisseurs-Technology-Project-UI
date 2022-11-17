@@ -5,7 +5,7 @@ import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
 import ProfileBanner from '../ProfileBanner/ProfileBanner';
 import ProfileReviews from '../ProfileReviews/ProfileReviews';
 import ProfileWelcome from '../ProfileWelcome/profile-welcome';
-import WatchListMain from '../WatchList/WatchListMain';
+import AltWatchListMain from '../WatchList/AltWatchListMain';
 
 const AltProfilePage = () => {
     const retrievedUsername = useParams();
@@ -15,14 +15,12 @@ const AltProfilePage = () => {
         let response = await fetch(`http://localhost:8080/users/uname/${retrievedUsername.username}`, {
             method: "GET",
             headers: {
-                // 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             }
         });
         if (response.status === 200) {
             let data = await response.json();
-            console.log(data);
             setUser(data);
         } else {
             console.log(
@@ -43,7 +41,7 @@ const AltProfilePage = () => {
             {user?
             <ProfileReviews user={user} /> : '' }
             {user?
-            <WatchListMain user={user} fetchData={fetchData}/> : '' }
+            <AltWatchListMain user={user} fetchData={fetchData}/> : '' }
         </Card>
     );
 }
