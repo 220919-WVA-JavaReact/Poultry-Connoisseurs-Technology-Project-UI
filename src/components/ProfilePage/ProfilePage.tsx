@@ -20,7 +20,6 @@ function ProfilePage(props: ILoginProps) {
             });
             if(response.status === 200){
                 let data = await response.json();
-                console.log(data);
                 setUserProfile(data);
             } else {
                 console.log(
@@ -33,14 +32,13 @@ function ProfilePage(props: ILoginProps) {
     useEffect(() => {    
         fetchData();
     }, [props.user != undefined])
-    console.log("User Profile: ", userProfile);
-
     
     return (
         <Card sx={{ backgroundColor: '#333333'}}>
             <ProfileWelcome user={userProfile} />
             <ProfileAvatar user={userProfile} />
             <ProfileBanner user={userProfile} />
+            <ProfileReviews user={userProfile} />
             {userProfile?
             <WatchListMain user={userProfile} fetchData={fetchData}/> : '' }
         </Card>

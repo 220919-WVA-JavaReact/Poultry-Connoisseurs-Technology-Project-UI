@@ -18,11 +18,11 @@ function ProfileAvatar(props: ProfileUserProps) {
                     height: 200,
                     position: 'absolute',
                     left: '45%',
-                    top: '60%'
-
+                    top: '525px',
+                    fontSize: '100px'
                 }}
                 alt="Default Profile Image"
-            >{props.user?.first.charAt(0)}</Avatar>
+            >{props.user?.first.charAt(0)}{props.user?.last.charAt(0)}</Avatar>
         </Stack>
     )
 }

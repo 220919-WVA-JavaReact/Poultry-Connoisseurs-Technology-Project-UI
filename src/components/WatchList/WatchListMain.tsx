@@ -27,7 +27,6 @@ export type Movie = {
 };
 
 const WatchListMain = (props: ProfileUserProps) => {
-  console.log(props);
   const [data, setData] = useState<Movie[]>();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeMovie, setActiveMovie] = useState<Movie>(
@@ -41,8 +40,6 @@ const WatchListMain = (props: ProfileUserProps) => {
 
   const getData = async () => {
     if(props.user != undefined) {
-      console.log(props.user);
-      console.log(props.user.id)
       const data = await (
         fetch(`http://localhost:8080/users/${props.user?.id}/watched`, {
           method: "GET",
@@ -51,12 +48,8 @@ const WatchListMain = (props: ProfileUserProps) => {
           }})
       )
       const x = await data.json();
-      console.log("Data: ", data);
-      console.log("RESPONSE: ", x);
       setData(x);
-    } else {
-      console.log(props.user);
-    }
+    } 
   };
 
   useEffect(() => {
@@ -79,6 +72,7 @@ const WatchListMain = (props: ProfileUserProps) => {
           {data.map(movie => (
             <div key={movie.id} onClick={() => handleDialogOpen(movie)}>
               <img src={SuperheroImage} alt='Superheroes At The Movies' />
+              <p style={{color: "whitesmoke"}}>{movie.title}</p>
             </div>
           ))}
         </Slider>
