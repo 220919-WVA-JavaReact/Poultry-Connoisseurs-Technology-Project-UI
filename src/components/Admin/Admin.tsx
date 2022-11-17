@@ -2,13 +2,56 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { ILoginProps, User } from '../../models/user'
 import { Container } from "@material-ui/core";
-import { ButtonGroup, Button, Grid, Card, Typography, CardContent, CardActions, CardActionArea } from "@mui/material";
-import { resolve } from 'path/posix';
+import { ButtonGroup, Button, Grid, Card, Typography, CardContent, CardActions, CardActionArea, CardHeader } from "@mui/material";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
+import "./Admin.css";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import { BigReview, Reviews } from '../../models/reviews';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    spaceBetweenButtons: {
+      marginRight: "auto",
+    },
+    consistentWidth: {
+      minWidth: "50%",
+    },
+    paperFlex: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    gridContainer: {
+      marginTop: 0,
+      paddingTop:48
+    },
+    dataDivider: {
+      marginTop: 24,
+    },
+    expand: {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: "rotate(180deg)",
+    },
+    avatar: {
+      backgroundColor: "#7b1fa2",
+    },
+  })
+);
+
 
 const Admin = (props: ILoginProps) => {
-    const [users, setUsers]: any[] = React.useState();
-    const [reviews, setReviews] = React.useState();
-    const [mode, setMode] = React.useState('reviews');
+    const classes = useStyles();
+    const [users, setUsers]: any[] = React.useState(undefined);
+    const [reviews, setReviews]: any[] = React.useState(undefined);
+    const [mode, setMode]: any[] = React.useState(undefined);
 
     const fetchReviewData = async () => {
         if(props.user){
@@ -23,8 +66,8 @@ const Admin = (props: ILoginProps) => {
       if (res.status === 200) {
         let data = await res.json();
         console.log(data);
-        setMode('reviews');
         setReviews(data);
+        setMode("reviews");
       } else {
         console.log(`Could not find reviews: ERROR CODE ${res.status}`);
       }
@@ -46,8 +89,8 @@ const Admin = (props: ILoginProps) => {
           if (res.status === 200) {
             let data = await res.json();
             console.log(data);
-            setMode("users");
             setUsers(data);
+            setMode("users");
           } else {
             console.log(`Could not find users: ERROR CODE ${res.status}`);
           }
@@ -56,16 +99,16 @@ const Admin = (props: ILoginProps) => {
         }
     };
 
-    React.useEffect(()=>{
-        fetchReviewData();
-    },[])
+    // React.useEffect(()=>{
+    //     fetchReviewData();
+    // },[])
 
 
   return !props.user ? (
     <Navigate to="/" />
   ) : (
     <Container
-      maxWidth="lg"
+      maxWidth="md"
       style={{
         backgroundColor: "#bff1ff",
         minHeight: "100vh",
@@ -109,51 +152,141 @@ const Admin = (props: ILoginProps) => {
         </Button>
       </ButtonGroup>
       {/* Here goes where you put the data that you get. */}
-      <br />
 
-      {mode === "users" ? "table of user info" : "table of review info"}
       {/* map each user to a component which includes a demote to egg button, map each review to a component which includes a delete review button. */}
-      {(mode === "users" && users !== undefined) ? (
+      {mode === "users" && users !== undefined ? (
         <Grid
           container
           direction="column"
           justifyContent="flex-start"
-          alignItems="center"
+          alignItems="flex-start"
           spacing={3}
+          className={classes.gridContainer}
         >
           {users.map((x: User) => (
-            <Grid item xs={12} key={x.id + 1}>
-              <Card>
-                <CardActionArea>
-                  
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      User {x.id}: {x.username}
+            <Grid
+              item
+              xs={6}
+              key={x.id + 1}
+              className={classes.consistentWidth}
+            >
+              <Card className={classes.paperFlex}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="user name" className={classes.avatar}>
+                      {x.username[0].toUpperCase()}
+                    </Avatar>
+                  }
+                  title={`User ${x.id}:
+                  ${
+                    props.user && x.username === props.user.username
+                      ? "You"
+                      : x.username
+                  }`}
+                  subheader={`${
+                    props.user && x.username === props.user.username
+                      ? "Your"
+                      : x.username + "'s"
+                  } 
+                  role: ${x.role}`}
+                />
+                <div style={{ display: "flex", width: "100%" }}>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    fullWidth={x.role !== "CHICK" && x.role !== "EGG"}
+                    className={
+                      x.role !== "CHICK" && x.role !== "EGG"
+                        ? ""
+                        : classes.spaceBetweenButtons
+                    }
+                  >
+                    <Typography gutterBottom variant="body2">
+                      Visit{" "}
+                      {props.user && x.username === props.user.username
+                        ? "Your"
+                        : x.username + "'s"}{" "}
+                      Page
                     </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {x.username}'s role: {x.role}
+                  </Button>
+
+                  {x.role === "CHICK" ? (
+                    <Button size="small" color="secondary" variant="contained">
+                      Ban {x.username}
+                    </Button>
+                  ) : x.role === "EGG" ? (
+                    <Button size="small" color="secondary" variant="contained">
+                      Unban {x.username}
+                    </Button>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      ) : mode === "reviews" && reviews !== undefined ? (
+        <Grid
+          container
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={3}
+          className={classes.gridContainer}
+        >
+          {reviews.map((x: BigReview) => (
+            <Grid
+              item
+              xs={6}
+              key={x.id + 1}
+              className={classes.consistentWidth}
+            >
+              <Card className={classes.paperFlex}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="user name" className={classes.avatar}>
+                      {x.authorUsername[0].toUpperCase()}
+                    </Avatar>
+                  }
+                  title={`User ${x.id}:
+                  ${
+                    props.user && x.authorUsername === props.user.username
+                      ? "You"
+                      : x.authorUsername
+                  }`}
+                  subheader={`${
+                    props.user && x.authorUsername === props.user.username
+                      ? "Your"
+                      : x.authorUsername + "'s"
+                  } 
+                  title for review: ${x.title}`}
+                />
+                <div style={{ display: "flex", width: "100%" }}>
+                  <Button variant="contained" size="small" color="secondary" className={classes.spaceBetweenButtons}>
+                    <Typography gutterBottom variant="body2">
+                      Delete{" "}
+                      {props.user && x.authorUsername === props.user.username
+                        ? "Your"
+                        : x.authorUsername + "'s"}{" "}
+                      Review
                     </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  {x.role === 'CHICK' ? (
-                  <div>
-                    button to demote to egg
-                    </div>) : x.role === 'EGG' ? (
-                    <div>
-                        button to unban from egg
-                        </div>) : ''}
-                </CardActions>
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary">
+                      <Typography gutterBottom variant="body2">
+                      Visit Movie Page</Typography>
+                    </Button>
+                </div>
               </Card>
             </Grid>
           ))}
         </Grid>
       ) : (
-        <div>reviewcontainer</div>
+        ""
       )}
     </Container>
   );

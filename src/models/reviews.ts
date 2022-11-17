@@ -18,6 +18,22 @@ export class Reviews{
     }
 }
 
+export class BigReview{
+    id: string;
+    authorUsername: string;
+    title: string;
+    summary: string;
+    userId: string;
+    movieId: string;
+    constructor(id: string, userId: string, movieId: string, authorUsername: string, title: string, summary: string) {
+        this.id = id;
+        this.userId = userId;
+        this.movieId = movieId;
+        this.authorUsername = authorUsername;
+        this.title = title;
+        this.summary = summary;
+    }
+}
 
 export interface IReviewsProps{
     reviews: Reviews[] | undefined,
