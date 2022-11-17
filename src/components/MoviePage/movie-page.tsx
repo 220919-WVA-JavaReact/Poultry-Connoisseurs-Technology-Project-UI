@@ -147,68 +147,97 @@ function MoviePage(props: ILoginProps) {
     };
     
     return (
-        <div className="body">
-            <Stack spacing={0}>
-                <Item style={{ padding: 0 }}>
-                    <Box sx={{ bgcolor: 'text.primary' }}>
-                        <div className="movieHeader">
-                            <Card id="moviePicture" sx={{ maxWidth: 385 }} >
-                                <CardMedia
-                                    component="img"
-                                    alt="BadMovie"
-                                    height="140"
-                                    style={{ backgroundSize: "cover" }}
-                                    image={SuperheroImage}
-                                    title="BadMovie"
-                                />
-                            </Card>
-                            <div className="movieInformation" style={{ width: "60%" }}>
-                                <p className="movieTitle">{movie?.title}</p>
-                                <p>Runtime: {movie?.runtime} minutes Rating: {movie?.rating}/10</p>
-                                <p>Add to Watched? <Checkbox {...label} checked={checked} onChange={handleChange} icon={<FavoriteBorder />} checkedIcon={<Favorite />} sx={{ color: pink[800], '&.Mui-checked': { color: pink[600], } }} /></p>
-                                <p>{movie?.stars}</p>
-                            </div>
+      <div className="body">
+        <Stack spacing={0}>
+          <Item style={{ padding: 0 }}>
+            <Box sx={{ bgcolor: "text.primary" }}>
+              <div className="movieHeader">
+                <Card id="moviePicture" sx={{ maxWidth: 385, margin: '16px' }}>
+                  <CardMedia
+                    component="img"
+                    alt="BadMovie"
+                    style={{ backgroundSize: "cover", maxHeight: '400px' }}
+                    image={`/assets/${movie?.id}.jpg`}
+                    title="BadMovie"
+                  />
+                </Card>
+                <div className="movieInformation" style={{ width: "60%" }}>
+                  <p className="movieTitle">{movie?.title}</p>
+                  <p>
+                    Runtime: {movie?.runtime} minutes Rating: {movie?.rating}/10
+                  </p>
+                  <p>
+                    Add to Watched?{" "}
+                    <Checkbox
+                      {...label}
+                      checked={checked}
+                      onChange={handleChange}
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite />}
+                      sx={{
+                        color: pink[800],
+                        "&.Mui-checked": { color: pink[600] },
+                      }}
+                    />
+                  </p>
+                  <p>{movie?.stars}</p>
+                </div>
+              </div>
+            </Box>
+          </Item>
+
+          <Item>
+            {props.user != undefined && movie != undefined ? (
+              <AddReview
+                currentUser={props.user}
+                getReviews={setReviews}
+                movieId={movie?.id}
+                movie={movie}
+              />
+            ) : (
+              ""
+            )}
+          </Item>
+
+          <Box sx={{ bgcolor: "text.primary" }}>
+            <Item style={{ padding: 0 }}>
+              <Box sx={{ bgcolor: "text.primary" }}>
+                <h3 className="titleReview">
+                  <b>Reviews:</b>
+                </h3>
+                <hr />
+                {reviews?.map((x) => (
+                  <div key={x.id + 1}>
+                    <div className="cont1">
+                      <Link
+                        to={`../profile/${x.authorUsername}`}
+                        style={{ color: "white", textDecoration: "none" }}
+                      >
+                        <div className="avatar">
+                          <Avatar sx={{ bgcolor: deepPurple[500] }}>
+                            {x.authorUsername.charAt(0).toUpperCase()}
+                          </Avatar>
                         </div>
-                    </Box>
-                </Item>
-
-                <Item>
-                    {props.user!=undefined && movie!=undefined? (<AddReview
-                        currentUser={props.user}
-                        getReviews={setReviews} 
-                        movieId={movie?.id} 
-                        movie={movie}
-                        />):''}
-                            </Item>
-
-                <Box sx={{ bgcolor: 'text.primary' }}>
-                    <Item style={{ padding: 0 }}>
-                        <Box sx={{ bgcolor: 'text.primary' }}>
-                            <h3 className="titleReview"><b>Reviews:</b></h3>
-                            <hr />
-                            {reviews?.map(x =>
-                                (<div key={x.id + 1}>
-                                    <div className="cont1">
-                                        <Link to={`../profile/${x.authorUsername}`} style={{ color: "white", textDecoration: "none" }} >
-                                            <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
-                                        </Link>
-                                        <div className="divider"></div>
-                                        <div className="userReview" style={{ width: "60%" }}>
-                                            <h5>Review by: <b>{x.authorUsername}</b></h5>
-                                            <h3>{x.title}</h3>
-                                            <Typography>{x.summary}</Typography>
-                                            <hr />
-                                        </div>
-                                    </div>
-                                </div>)
-                            )}
-                        </Box>
-                    </Item>
-                </Box>
-            </Stack>
-            <p></p>
-        </div>
-    )
+                      </Link>
+                      <div className="divider"></div>
+                      <div className="userReview" style={{ width: "60%" }}>
+                        <h5>
+                          Review by: <b>{x.authorUsername}</b>
+                        </h5>
+                        <h3>{x.title}</h3>
+                        <Typography>{x.summary}</Typography>
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </Box>
+            </Item>
+          </Box>
+        </Stack>
+        <p></p>
+      </div>
+    );
 }
 
 export default MoviePage;

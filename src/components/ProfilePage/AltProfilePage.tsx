@@ -12,11 +12,11 @@ const AltProfilePage = () => {
     const [user, setUser] = useState();
 
     const fetchData = async () => {
-        let response = await fetch(`http://localhost:8080/users/uname/${retrievedUsername.username}`, {
+        let response = await fetch(`${process.env.REACT_APP_API_URL}/users/uname/${retrievedUsername.username}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                "mode":"cors"
             }
         });
         if (response.status === 200) {

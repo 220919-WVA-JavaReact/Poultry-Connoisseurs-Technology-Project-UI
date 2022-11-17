@@ -42,14 +42,18 @@ const WatchListMain = (props: ProfileUserProps) => {
 
     const getData = async () => {
         if(props.user != undefined) {
-            const data = await (
-                fetch(`http://localhost:8080/users/${props.user.id}/watched`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': '*',
-                    }})
-            )
+            const data = await(
+              fetch(
+                `${process.env.REACT_APP_API_URL}/users/${props.user.id}/watched`,
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                  },
+                }
+              )
+            );
             const x = await data.json();
             console.log(x);
             setData(x);

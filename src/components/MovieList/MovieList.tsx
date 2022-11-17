@@ -34,7 +34,7 @@ const MovieList = (props: IMovieProps) => {
                     component="img"
                     alt="Movie image"
                     height="210"
-                    image={SuperheroImage}
+                    image={`/assets/${x.id}.jpg`}
                     title="Movie image"
                   />
                   <CardContent style={{display: 'flex',

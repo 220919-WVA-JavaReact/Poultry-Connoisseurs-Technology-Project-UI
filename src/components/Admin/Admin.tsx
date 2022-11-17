@@ -64,7 +64,7 @@ const Admin = (props: ILoginProps) => {
 
     const fetchReviewData = async () => {
         if(props.user){
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/review`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/reviews`, {
         method: "GET",
         mode: "cors",
         headers: {
