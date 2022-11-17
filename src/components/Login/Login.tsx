@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Card } from '@mui/material';
 
 
 //get props { user, setUser }
@@ -75,16 +76,19 @@ const Login = (props: ILoginProps ) => {
             //Updates message to show that login is in progress.
             setErrorMessage('logging in now!');
             try {
-                let response = await fetch(`http://localhost:8080/auth`, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    username,
-                    password,
-                  }),
-                });
+                let response = await fetch(
+                  `${process.env.REACT_APP_API_URL}/auth`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      username,
+                      password,
+                    }),
+                  }
+                );
 
                 //Functionality to run if process succeeds. Will set the user using the recieved UserDTO from backend.
             if(response.status === 200){
@@ -106,15 +110,21 @@ const Login = (props: ILoginProps ) => {
 
             //Sign up functionality, runs if 'signIn' state is false.
             console.log(`Signing up for your account now! ${password} = ${confPassword} ? `)
-            let response = await fetch(`http://localhost:8080/users`, {
-                  method: "POST",
-                  headers: {
-                      'Content-Type':'application/json'
-                  },
-                  body: JSON.stringify({
-                      firstName, lastName, username,password
-                  })
-                });
+            let response = await fetch(
+              `${process.env.REACT_APP_API_URL}/users`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  firstName,
+                  lastName,
+                  username,
+                  password,
+                }),
+              }
+            );
                 let data = await response.json();
                 console.log(data);
                 //TODO: automatically sign in user upon registration. Only recieves confirmation of sign up as of now.
@@ -126,131 +136,114 @@ const Login = (props: ILoginProps ) => {
     <Navigate to="/profile" />
   ) : (
     <>
-        {/* Dynamically renders component using ternary operator to check if 'signIn' state is true or false. */}
-      <h4>{signIn? 'Log in' : 'Sign up'} to egg</h4>
-      <div>
-        <input
-          type="text"
-          id="login-username"
-          placeholder="Enter your username"
-          onChange={updateUsername}
-        />
-        <input
-          type="password"
-          id="login-password"
-          placeholder="Enter your password"
-          onChange={updatePassword}
-        />
-        <button id="login-button" onClick={login}>
-          Login
-        </button>
-      </div>
+      {/* Dynamically renders component using ternary operator to check if 'signIn' state is true or false. */}
+
       <div>
         <p>{errorMessage}</p>
       </div>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign {signIn ? "In" : "Up"}
-          </Typography>
-          <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
-            <TextField
-              onChange={updateUsername}
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoFocus
-            />
-            <TextField
-              onChange={updatePassword}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            {signIn ? (
-              ""
-            ) : (
-              <>
-                <TextField
-                  onChange={updateFirstName}
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Firstname"
-                  name="firstname"
-                  autoFocus
-                />
-                <TextField
-                  onChange={updateLastName}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="lastname"
-                  label="Lastname"
-                  type="lastname"
-                  id="lastname"
-                />
-                <TextField
-                  onChange={updateConfPassword}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="confpassword"
-                  label="Confirm Password"
-                  type="password"
-                  id="confpassword"
-                />
-              </>
-            )}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+        <Card style={{ backgroundColor: "#a0d0ff", padding: "1.5rem" }}>
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Sign {signIn ? "In" : "Up"}
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+            </Typography>
+            <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
+              <TextField
+                onChange={updateUsername}
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoFocus
+              />
+              <TextField
+                onChange={updatePassword}
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              {signIn ? (
+                ""
+              ) : (
+                <>
+                  <TextField
+                    onChange={updateFirstName}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="Firstname"
+                    name="firstname"
+                    autoFocus
+                  />
+                  <TextField
+                    onChange={updateLastName}
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="lastname"
+                    label="Lastname"
+                    type="lastname"
+                    id="lastname"
+                  />
+                  <TextField
+                    onChange={updateConfPassword}
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="confpassword"
+                    label="Confirm Password"
+                    type="password"
+                    id="confpassword"
+                  />
+                </>
+              )}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign {signIn ? "In" : "Up"}
+              </Button>
+              <Grid container justifyContent='center'>
+                
+                <Grid item>
+                  <Button
+                  
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      setSignIn(!signIn);
+                    }}
+                  >
+                    {!signIn ? "Already" : "Don't"} have an account? Sign{" "}
+                    {!signIn ? "In" : "Up"}
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Button
-                variant='contained'
-                color='secondary'
-                  onClick={() => {
-                    setSignIn(!signIn);
-                  }}
-                >
-                  {!signIn ? "Already" : "Don't"} have an account? Sign{" "}
-                  {!signIn ? "In" : "Up"}
-                </Button>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
+        </Card>
       </Container>
     </>
   );
