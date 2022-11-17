@@ -1,5 +1,5 @@
 import "./MoviePage.css";
-import { ILoginProps, IUser } from "../../models/user";
+import { ILoginProps, IUser, User } from "../../models/user";
 import { Movie } from "../../models/movie";
 import { Reviews } from "../../models/reviews";
 import * as React from 'react';
@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import SuperheroImage from "../../assets/superheroes-at-the-movies-min.jpeg";
+import AddReview from "../AddReview/addreview";
 
 interface IUserProps {
     user: IUser | undefined
@@ -158,7 +159,14 @@ function MoviePage(props: ILoginProps) {
                         </div>
                     </Box>
                 </Item>
-                <Item>submit review</Item>
+                <Item>
+                    {props.user!=undefined && movie!=undefined? (<AddReview
+                        currentUser={props.user}
+                        getReviews={setReviews} 
+                        movieId={movie?.id} 
+                        movie={movie}
+                        />):''}
+                            </Item>
                 <Box sx={{ bgcolor: 'text.primary' }}>
                     <Item style={{ padding: 0 }}>
                         <Box sx={{ bgcolor: 'text.primary' }}>

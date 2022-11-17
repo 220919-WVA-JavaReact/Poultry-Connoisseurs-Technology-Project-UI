@@ -6,7 +6,7 @@ import { User } from "../../models/user";
 
 interface IAddReviewProps {
     currentUser: User;
-    movie_id: number | string | undefined;
+    movieId: number | string | undefined;
     movie: Movie;
     getReviews: Function;
 }
@@ -25,26 +25,25 @@ function AddReview(props: IAddReviewProps) {
     };
 
     async function postReview() {
+        console.log(props.currentUser?.id);
         const userId = props.currentUser?.id;
-        const movie_id = props.movie;
-        console.log(userId);
+        const movieId = props.movie.id;
         const result = await fetch(
-            `http://localhost:8080/reviews/${props.movie_id}`,
+            `http://localhost:8080/reviews`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    'authorization': `${props.currentUser.role}`,
                 },
-                body: JSON.stringify({ userId, title, summary, movie_id }),
+                body: JSON.stringify({ userId, title, summary, movieId }),
             }
         );
-        // const data = await result.json();
-        // setTitle('');
-        // setSummary('');
-        // setReviews(Object.assign(data));
-        // props.getReviews(reviews);
-
+        const data = await result.json();
+        setTitle('');
+        setSummary('');
+        setReviews(Object.assign(data));
+        props.getReviews(reviews);
     }
 
     return (
@@ -82,8 +81,8 @@ function AddReview(props: IAddReviewProps) {
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick={() => { setReviews(reviews) }}>
-                        Submit
+                        onClick={ postReview }>
+                        Post
                     </Button>
                 </div>
             </Box>
