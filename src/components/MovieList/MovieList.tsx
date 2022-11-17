@@ -11,9 +11,11 @@ import {
 import React from "react";
 import { IMovieProps } from "../../models/movie";
 import SuperheroImage from "../../assets/superheroes-at-the-movies-min.jpeg";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const MovieList = (props: IMovieProps) => {
+  const navigate = useNavigate();
+
   return (
     <Grid
       container
@@ -21,21 +23,25 @@ const MovieList = (props: IMovieProps) => {
       justifyContent="flex-start"
       alignItems="center"
       spacing={3}
-    >
+    >{/* 
+                  <Link to={`/movies/${x.id}`}></Link> */}
       {props.movies
         ? props.movies.map((x) => (
             <Grid item xs={6} key={x.id + 1}>
               <Card>
-                <CardActionArea>
+                <CardActionArea onClick={()=>navigate(`/movies/${x.id}`)}>
                   <CardMedia
                     component="img"
-                    alt="Contemplative Reptile"
-                    height="140"
+                    alt="Movie image"
+                    height="210"
                     image={SuperheroImage}
-                    title="Contemplative Reptile"
+                    title="Movie image"
                   />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent style={{display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    padding: '8px'}}>
+                    <Typography gutterBottom variant="h5" component="h2" style={{marginRight:'16px'}}>
                       {x.title}
                     </Typography>
                     <Typography
@@ -46,12 +52,8 @@ const MovieList = (props: IMovieProps) => {
                       Rating: {x.rating}
                     </Typography>
                   </CardContent>
+                  
                 </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    <Link to={`/movies/${x.id}`}>Visit {x.title}</Link>
-                  </Button>
-                </CardActions>
               </Card>
             </Grid>
           ))

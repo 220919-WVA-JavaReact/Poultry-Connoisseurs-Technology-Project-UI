@@ -10,6 +10,8 @@ import "./Admin.css";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import { BigReview, Reviews } from '../../models/reviews';
+import { useNavigate } from 'react-router-dom';
+import { Role } from '../../models/role';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paperFlex: {
       display: "flex",
       flexDirection: "column",
+      backgroundColor:'#eee',
     },
     gridContainer: {
       marginTop: 0,
@@ -29,6 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dataDivider: {
       marginTop: 24,
+    },
+    summaryText:{
+      maxWidth: 'fit-content',
+      textAlign: 'left',
+      margin: '0px 8px 8px 16px',
     },
     expand: {
       transform: "rotate(0deg)",
@@ -52,6 +60,7 @@ const Admin = (props: ILoginProps) => {
     const [users, setUsers]: any[] = React.useState(undefined);
     const [reviews, setReviews]: any[] = React.useState(undefined);
     const [mode, setMode]: any[] = React.useState(undefined);
+    let navigate = useNavigate();
 
     const fetchReviewData = async () => {
         if(props.user){
@@ -98,6 +107,52 @@ const Admin = (props: ILoginProps) => {
           console.log(`Could not fetch reviews: UNAUTHORIZED`);
         }
     };
+
+    const deleteReview = async (id: string) => {
+      if(props.user) {
+        const res = await fetch(`http://localhost:8080/reviews/${id}`, {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "authorization": `${props.user.role}`,
+          },
+      });
+      if (res.status === 200) {
+        let data = await res.json();
+        console.log(data);
+        setReviews(reviews.filter((x: BigReview) => x.id !== id));
+
+    } else{
+      console.log(`Could not delete review: UNAUTHORIZED`);
+    }
+  } else {
+    console.log(`No reviews found for user`);
+  }}
+  const updateRole = async (x: User) => {
+    if(props.user) {
+        const res = await fetch(`http://localhost:8080/users`, {
+          method: "PUT",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "authorization": `${props.user.role}`,
+          },
+          body: JSON.stringify(x)
+      });
+      if (res.status === 200) {
+        let data = await res.json();
+        console.log(data);
+        
+        setUsers(users.map((y: User) => (y.id === x.id) ? x : y));
+
+    } else{
+      console.log(`Could not update role: UNAUTHORIZED`);
+    }
+  } else {
+    console.log(`Couldn't update role for user`);
+  }
+  }
 
     // React.useEffect(()=>{
     //     fetchReviewData();
@@ -154,7 +209,12 @@ const Admin = (props: ILoginProps) => {
       {/* Here goes where you put the data that you get. */}
 
       {/* map each user to a component which includes a demote to egg button, map each review to a component which includes a delete review button. */}
-      {mode === "users" && users !== undefined ? (
+      {mode === undefined ? (
+        <div>
+          <Typography variant="h5">Welcome to admin!</Typography>
+          <Typography variant="body2">Press a button to get started.</Typography>
+        </div>
+      ) : mode === "users" && users !== undefined ? (
         <Grid
           container
           direction="column"
@@ -203,21 +263,33 @@ const Admin = (props: ILoginProps) => {
                     }
                   >
                     <Typography gutterBottom variant="body2">
-                      Visit{" "}
-                      {props.user && x.username === props.user.username
-                        ? "Your"
-                        : x.username + "'s"}{" "}
-                      Page
+                      Visit User Page
                     </Typography>
                   </Button>
 
                   {x.role === "CHICK" ? (
-                    <Button size="small" color="secondary" variant="contained">
-                      Ban {x.username}
+                    <Button
+                      size="small"
+                      color="secondary"
+                      variant="contained"
+                      onClick={() => {
+                        x.role = Role.EGG;
+                        updateRole(x);
+                      }}
+                    >
+                      Ban User
                     </Button>
                   ) : x.role === "EGG" ? (
-                    <Button size="small" color="secondary" variant="contained">
-                      Unban {x.username}
+                    <Button
+                      size="small"
+                      color="secondary"
+                      variant="contained"
+                      onClick={() => {
+                        x.role = Role.CHICK;
+                        updateRole(x);
+                      }}
+                    >
+                      Unban User
                     </Button>
                   ) : (
                     ""
@@ -250,36 +322,38 @@ const Admin = (props: ILoginProps) => {
                       {x.authorUsername[0].toUpperCase()}
                     </Avatar>
                   }
-                  title={`User ${x.id}:
+                  title={`Review by User ${x.id}:
                   ${
                     props.user && x.authorUsername === props.user.username
                       ? "You"
                       : x.authorUsername
                   }`}
-                  subheader={`${
-                    props.user && x.authorUsername === props.user.username
-                      ? "Your"
-                      : x.authorUsername + "'s"
-                  } 
-                  title for review: ${x.title}`}
+                  subheader={`
+                  TITLE: ${x.title}`}
                 />
+                <Typography variant='body2' className={classes.summaryText}>REVIEW: {x.summary}</Typography>
                 <div style={{ display: "flex", width: "100%" }}>
-                  <Button variant="contained" size="small" color="secondary" className={classes.spaceBetweenButtons}>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    className={classes.spaceBetweenButtons}
+                    onClick={() => deleteReview(x.id)}
+                  >
                     <Typography gutterBottom variant="body2">
-                      Delete{" "}
-                      {props.user && x.authorUsername === props.user.username
-                        ? "Your"
-                        : x.authorUsername + "'s"}{" "}
-                      Review
+                      Delete Review
                     </Typography>
                   </Button>
                   <Button
                     variant="contained"
                     size="small"
-                    color="secondary">
-                      <Typography gutterBottom variant="body2">
-                      Visit Movie Page</Typography>
-                    </Button>
+                    color="secondary"
+                    onClick={() => navigate(`../movies/${x.movieId}`)}
+                  >
+                    <Typography gutterBottom variant="body2">
+                      Visit Movie Page
+                    </Typography>
+                  </Button>
                 </div>
               </Card>
             </Grid>

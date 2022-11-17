@@ -1,8 +1,9 @@
-import { Container } from '@material-ui/core';
+import { Container, Divider } from '@material-ui/core';
 import { Typography } from '@mui/material';
 import React from 'react'
 import { IinfoProps } from '../../models/infoprops';
 import MovieList from '../MovieList/MovieList';
+
 const Home = ( props: IinfoProps ) => {
   React.useEffect(()=>{
     
@@ -33,17 +34,34 @@ const Home = ( props: IinfoProps ) => {
       maxWidth="md"
       style={{ backgroundColor: "#bff1ff", minHeight: "100vh" }}
     >
-
       {/* Check to see if user is signed in or not, will eventually get rid of it once we have UI more developed. */}
-      <p style={{ marginTop: "0"}}>
-        {props.user
-          ? `${props.user.username}: ${props.user.role}`
-          : "Not logged in =("}
-      </p>
+      <Typography
+        variant="h4"
+        style={{
+          maxWidth: "50%",
+          margin: "auto",
+          fontWeight: "600",
+          fontFamily: "system-ui",
+        }}
+      >
+        Eggcellent Reviews
+      </Typography>
 
       {/* Here is where SEARCHBAR and MOVIES components would go - Perhaps use dashboard as MOVIES */}
-      <h2>LATEST BESTEST AMAZINGEST MOVIES</h2>
-      <MovieList movies={props.movies} setMovies={props.setMovies}/>
+      <Typography
+        variant="h5"
+        style={{
+          maxWidth: "50%",
+          margin: "8px auto 24px auto",
+          fontWeight: "600",
+          fontFamily: "system-ui",
+        }}
+      >
+        Your one-stop-shop for checking out new movies and reading/writing reviews for them
+      </Typography>
+      <Divider style={{height:'3px', marginBottom:'24px'}}/>
+      <Typography variant='h6' style={{textDecoration:'underline', marginBottom:'16px'}}>Latest movies</Typography>
+      <MovieList movies={props.movies} setMovies={props.setMovies} />
     </Container>
   );
 };

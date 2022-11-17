@@ -32,10 +32,6 @@ const Navbar = (props: ILoginProps) => {
               alignItems: "center",
             }}
           >
-            <EggIcon
-              fontSize="large"
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            />
             <Link
               to="/"
               style={{
@@ -48,6 +44,10 @@ const Navbar = (props: ILoginProps) => {
                 fontSize: "2rem",
               }}
             >
+              <EggIcon
+                fontSize="large"
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              />
               Egg
             </Link>
           </Box>
@@ -74,18 +74,21 @@ const Navbar = (props: ILoginProps) => {
                 color="secondary"
                 aria-label="contained primary button group"
               >
-                {(props.user.role == 'HEN' || props.user.role == 'ROOSTER') ? (<Button>
-                  <Link
-                    to={`/admin`}
-                    style={{ color: "white", textDecoration: "none" }}
-                  >
-                    Admin
-                  </Link>
+                {props.user.role == "HEN" || props.user.role == "ROOSTER" ? (
+                  <Button>
+                    <Link
+                      to={`/admin`}
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      Admin
+                    </Link>
                   </Button>
-                  ) : ''}
+                ) : (
+                  ""
+                )}
                 <Button>
                   <Link
-                    to='profile'
+                    to="profile"
                     style={{ color: "white", textDecoration: "none" }}
                   >
                     Profile
