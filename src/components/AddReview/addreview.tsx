@@ -29,7 +29,7 @@ function AddReview(props: IAddReviewProps) {
         const userId = props.currentUser?.id;
         const movieId = props.movie.id;
         const result = await fetch(
-            `http://localhost:8080/reviews`,
+            `${process.env.REACT_APP_API_URL}/reviews`,
             {
                 method: 'POST',
                 headers: {

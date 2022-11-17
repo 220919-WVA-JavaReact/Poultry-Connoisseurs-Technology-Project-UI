@@ -12,12 +12,15 @@ function ProfilePage(props: ILoginProps) {
 
     const fetchData = async ()=>{
         if(props.user != undefined) {
-            let response = await fetch(`http://localhost:8080/users/uname/${props.user?.username}`, {
-                method: 'GET',
+            let response = await fetch(
+              `${process.env.REACT_APP_API_URL}/users/uname/${props.user?.username}`,
+              {
+                method: "GET",
                 headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+                  "Content-Type": "application/json",
+                },
+              }
+            );
             if(response.status === 200){
                 let data = await response.json();
                 setUserProfile(data);

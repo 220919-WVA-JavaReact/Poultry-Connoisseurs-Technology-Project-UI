@@ -14,15 +14,15 @@ function ProfileReviews(props: ProfileUserProps) {
     
     async function getReviews(){
         if(props.user != undefined) {
-            const result = await fetch (
-                `http://localhost:8080/reviews/users/${props.user?.id}`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': "application/json",
-                        'authorization': `${props.user.role}`
-                    }
-                }
+            const result = await fetch(
+              `${process.env.REACT_APP_API_URL}/reviews/users/${props.user?.id}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  authorization: `${props.user.role}`,
+                },
+              }
             );
             const data = await result.json();
             console.log(data);

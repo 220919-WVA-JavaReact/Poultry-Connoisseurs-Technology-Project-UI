@@ -76,16 +76,19 @@ const Login = (props: ILoginProps ) => {
             //Updates message to show that login is in progress.
             setErrorMessage('logging in now!');
             try {
-                let response = await fetch(`http://localhost:8080/auth`, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    username,
-                    password,
-                  }),
-                });
+                let response = await fetch(
+                  `${process.env.REACT_APP_API_URL}/auth`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      username,
+                      password,
+                    }),
+                  }
+                );
 
                 //Functionality to run if process succeeds. Will set the user using the recieved UserDTO from backend.
             if(response.status === 200){
@@ -107,15 +110,21 @@ const Login = (props: ILoginProps ) => {
 
             //Sign up functionality, runs if 'signIn' state is false.
             console.log(`Signing up for your account now! ${password} = ${confPassword} ? `)
-            let response = await fetch(`http://localhost:8080/users`, {
-                  method: "POST",
-                  headers: {
-                      'Content-Type':'application/json'
-                  },
-                  body: JSON.stringify({
-                      firstName, lastName, username,password
-                  })
-                });
+            let response = await fetch(
+              `${process.env.REACT_APP_API_URL}/users`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  firstName,
+                  lastName,
+                  username,
+                  password,
+                }),
+              }
+            );
                 let data = await response.json();
                 console.log(data);
                 //TODO: automatically sign in user upon registration. Only recieves confirmation of sign up as of now.

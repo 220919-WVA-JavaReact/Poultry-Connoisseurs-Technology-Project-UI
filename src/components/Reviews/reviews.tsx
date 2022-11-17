@@ -17,16 +17,16 @@ function Reviews(props: IReviewProps){
     // const [authUser, setAuthUser] = useState<User>();
     
     async function getReviews(){
-        const result = await fetch (
-            `https://localhost:8080/reviews/movies/${props.id}}`,
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': "application/json",
-                    'Role' : `${props.user?.role}`,
-                    'Access-Control-Allow-Origin' : '*',
-                },
-            }
+        const result = await fetch(
+          `${process.env.REACT_APP_API_URL}/reviews/movies/${props.id}}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Role: `${props.user?.role}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
         );
         const data = await result.json();
         setReviews(Object.assign(data));

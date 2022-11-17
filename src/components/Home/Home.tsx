@@ -8,11 +8,11 @@ const Home = ( props: IinfoProps ) => {
   React.useEffect(()=>{
     
     const fetchData = async ()=>{
-      let response = await fetch(`http://localhost:8080/movies/`, {
+      let response = await fetch(`${process.env.REACT_APP_API_URL}/movies/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-        }
+        },
       });
       if (response.status === 200) {
         let data = await response.json();

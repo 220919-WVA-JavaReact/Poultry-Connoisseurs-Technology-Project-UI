@@ -48,12 +48,15 @@ function MoviePage(props: ILoginProps) {
     }, [movie, reviews])
 
     const fetchData = async () => {
-        let response = await fetch(`http://localhost:8080/movies/${id}`, {
+        let response = await fetch(
+          `${process.env.REACT_APP_API_URL}/movies/${id}`,
+          {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
-            }
-        });
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (response.status === 200) {
             let data = await response.json();
             console.log(data);
@@ -66,12 +69,15 @@ function MoviePage(props: ILoginProps) {
     }
 
     const fetchData2 = async () => {
-        let response = await fetch(`http://localhost:8080/reviews/${id}`, {
+        let response = await fetch(
+          `${process.env.REACT_APP_API_URL}/reviews/${id}`,
+          {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
-            }
-        });
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (response.status === 200) {
             let data = await response.json();
             console.log(data);
@@ -85,13 +91,16 @@ function MoviePage(props: ILoginProps) {
 
     const fetchData3 = async () => {
         if (props.user) {
-            let response = await fetch(`http://localhost:8080/users/${props.user?.id}/movies`, {
+            let response = await fetch(
+              `${process.env.REACT_APP_API_URL}/users/${props.user?.id}/movies`,
+              {
                 method: "POST",
                 body: JSON.stringify(movie),
                 headers: {
-                    "Content-Type": "application/json",
-                }
-            });
+                  "Content-Type": "application/json",
+                },
+              }
+            );
             if (response.status === 200) {
                 let data = await response.json();
                 console.log(data);
@@ -113,13 +122,16 @@ function MoviePage(props: ILoginProps) {
         } else {
             /*check if they have in favorites before this func */
             const toggleFavorite = async () => {
-                let response = await fetch(`http://localhost:8080/users/${props.user?.id}/watched`, {
+                let response = await fetch(
+                  `${process.env.REACT_APP_API_URL}/users/${props.user?.id}/watched`,
+                  {
                     method: "POST",
                     body: JSON.stringify(movie),
                     headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
                 if (response.status === 200) {
                     const data = await response.json();
                     console.log(data);

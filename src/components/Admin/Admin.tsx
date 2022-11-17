@@ -64,12 +64,12 @@ const Admin = (props: ILoginProps) => {
 
     const fetchReviewData = async () => {
         if(props.user){
-      const res = await fetch(`http://localhost:8080/reviews`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/review`, {
         method: "GET",
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
-          "authorization": `${props.user.role}`
+          authorization: `${props.user.role}`,
         },
       });
       if (res.status === 200) {
@@ -87,12 +87,12 @@ const Admin = (props: ILoginProps) => {
 
     const fetchUserData = async () => {
         if (props.user) {
-          const res = await fetch(`http://localhost:8080/users`, {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
             method: "GET",
             mode: "cors",
             headers: {
               "Content-Type": "application/json",
-              "authorization": `${props.user.role}`,
+              authorization: `${props.user.role}`,
             },
           });
           if (res.status === 200) {
@@ -110,14 +110,17 @@ const Admin = (props: ILoginProps) => {
 
     const deleteReview = async (id: string) => {
       if(props.user) {
-        const res = await fetch(`http://localhost:8080/reviews/${id}`, {
-          method: "DELETE",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-            "authorization": `${props.user.role}`,
-          },
-      });
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/reviews/${id}`,
+          {
+            method: "DELETE",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `${props.user.role}`,
+            },
+          }
+        );
       if (res.status === 200) {
         let data = await res.json();
         console.log(data);
@@ -131,15 +134,15 @@ const Admin = (props: ILoginProps) => {
   }}
   const updateRole = async (x: User) => {
     if(props.user) {
-        const res = await fetch(`http://localhost:8080/users`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
           method: "PUT",
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${props.user.role}`,
+            authorization: `${props.user.role}`,
           },
-          body: JSON.stringify(x)
-      });
+          body: JSON.stringify(x),
+        });
       if (res.status === 200) {
         let data = await res.json();
         console.log(data);
