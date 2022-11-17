@@ -35,7 +35,7 @@ function ProfileReviews(props: ProfileUserProps) {
 
     return (
         <>
-            <Container maxWidth="sm">
+            <Container maxWidth="sm" style={{justifyContent: 'center'}}>
                 <Box />
                     <Card style={{ backgroundColor: '#333333', border: 'none'}}>
                         <CardContent>

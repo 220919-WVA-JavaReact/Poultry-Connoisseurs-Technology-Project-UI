@@ -22,7 +22,7 @@ function ProfileAvatar(props: ProfileUserProps) {
                     fontSize: '100px'
                 }}
                 alt="Default Profile Image"
-            >{props.user?.first.charAt(0)}{props.user?.last.charAt(0)}</Avatar>
+            >{props.user?.first.charAt(0).toUpperCase()}{props.user?.last.charAt(0).toUpperCase()}</Avatar>
         </Stack>
     )
 }

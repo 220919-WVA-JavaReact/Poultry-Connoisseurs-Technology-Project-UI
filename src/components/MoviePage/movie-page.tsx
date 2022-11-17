@@ -4,7 +4,7 @@ import { Movie } from "../../models/movie";
 import { Reviews } from "../../models/reviews";
 import * as React from 'react';
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { Card, CardContent, CardMedia, Checkbox, Typography } from "@mui/material";
@@ -175,7 +175,9 @@ function MoviePage(props: ILoginProps) {
                             {reviews?.map(x =>
                                 (<div key={x.id + 1}>
                                     <div className="cont1">
-                                        <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                        <Link to={`../profile/${x.authorUsername}`} style={{ color: "white", textDecoration: "none" }} >
+                                            <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                        </Link>
                                         <div className="divider"></div>
                                         <div className="userReview" style={{ width: "60%" }}>
                                             <h5>Review by: <b>{x.authorUsername}</b></h5>
