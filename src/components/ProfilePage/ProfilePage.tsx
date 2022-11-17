@@ -34,11 +34,12 @@ function ProfilePage(props: ILoginProps) {
     }, [props.user != undefined])
     
     return (
-        <Card sx={{ backgroundColor: '#333333'}}>
+        <Card sx={{ backgroundColor: '#333333', minHeight: '100vh' }}>
             <ProfileWelcome user={userProfile} />
             <ProfileAvatar user={userProfile} />
             <ProfileBanner user={userProfile} />
-            <ProfileReviews user={userProfile} />
+            {userProfile?
+            <ProfileReviews user={userProfile} /> : '' }
             {userProfile?
             <WatchListMain user={userProfile} fetchData={fetchData}/> : '' }
         </Card>

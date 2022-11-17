@@ -41,7 +41,7 @@ export default function ReviewCard(props: IReviewCardProps) {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                titleTypographyProps={props.title}
+                title={props.title}
             />
             <CardMedia
                 component="img"
