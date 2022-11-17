@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Button, TextField, Box, Card } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { Movie } from "../../models/movie";
 import { User } from "../../models/user";
+import { Reviews } from '../../models/reviews';
+import { useNavigate } from 'react-router-dom';
+import { updateStatement } from 'typescript';
 
 interface IAddReviewProps {
     currentUser: User;
@@ -12,10 +15,19 @@ interface IAddReviewProps {
 }
 
 function AddReview(props: IAddReviewProps) {
-    const [reviews, setReviews] = useState([]);
+    const [reviews, setReviews] = useState<Reviews[] | undefined>()
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
 
+    let navigate = useNavigate();
+    
+    function useForceUpdate(){
+        const [value, setValue] = useState(0);
+        return () => setValue(value => value + 1);
+    }
+
+    const forceUpdate = useForceUpdate();
+    
     let updateReviewTitle = (e: SyntheticEvent) => {
         setTitle((e.target as HTMLInputElement).value);
     };
@@ -24,7 +36,8 @@ function AddReview(props: IAddReviewProps) {
         setSummary((e.target as HTMLInputElement).value);
     };
 
-    async function postReview() {
+    async function postReview(e: SyntheticEvent) {
+        e.preventDefault();
         console.log(props.currentUser?.id);
         const userId = props.currentUser?.id;
         const movieId = props.movie.id;
@@ -42,11 +55,14 @@ function AddReview(props: IAddReviewProps) {
         const data = await result.json();
         setTitle('');
         setSummary('');
-        setReviews(Object.assign(data));
-        props.getReviews(reviews);
+        console.log(data);
+        forceUpdate();
+        //setReviews(Object.assign(data));
+        //props.getReviews(reviews);
     }
 
     return (
+
         <Card style={{ backgroundColor: "#a0d0ff", padding: "1.5rem" }}>
             <Box
                 component="form"

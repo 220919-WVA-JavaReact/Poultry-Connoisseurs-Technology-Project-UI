@@ -9,7 +9,6 @@ interface ProfileUserProps{
 }
 
 function ProfileReviews(props: ProfileUserProps) {
-    console.log(props.user);
     const [reviews, setReviews] = useState([]);
     
     async function getReviews(){
@@ -25,7 +24,6 @@ function ProfileReviews(props: ProfileUserProps) {
               }
             );
             const data = await result.json();
-            console.log(data);
             setReviews(data);
         }
     }
@@ -35,20 +33,23 @@ function ProfileReviews(props: ProfileUserProps) {
 
     return (
         <>
-            <Container maxWidth="sm">
+            <Container maxWidth="sm" style={{justifyContent: 'center'}}>
                 <Box />
                     <Card style={{ backgroundColor: '#333333', border: 'none'}}>
                         <CardContent>
                             {reviews.map((review: BigReview) => {
                                 return (
+                                    <>
                                     <ReviewCard
                                         user={review.authorUsername}
                                         title={review.title}
                                         summary={review.summary}
                                         key={review.id}
                                     />
+                                    <br />
+                                    </>
                                 );
-                                    })}
+                            })}
                         </CardContent>
                     </Card>
             </Container>

@@ -4,7 +4,7 @@ import { Movie } from "../../models/movie";
 import { Reviews } from "../../models/reviews";
 import * as React from 'react';
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { Card, CardContent, CardMedia, Checkbox, Typography } from "@mui/material";
@@ -145,10 +145,10 @@ function MoviePage(props: ILoginProps) {
             toggleFavorite();
         }
     };
-
+    
     return (
         <div className="body">
-            <Stack spacing={2}>
+            <Stack spacing={0}>
                 <Item style={{ padding: 0 }}>
                     <Box sx={{ bgcolor: 'text.primary' }}>
                         <div className="movieHeader">
@@ -164,13 +164,14 @@ function MoviePage(props: ILoginProps) {
                             </Card>
                             <div className="movieInformation" style={{ width: "60%" }}>
                                 <p className="movieTitle">{movie?.title}</p>
-                                <p>Runtime: {movie?.runtime} minutes Rating: {movie?.stars}/10</p>
-                                <p>Add to Favorites? <Checkbox {...label} checked={checked} onChange={handleChange} icon={<FavoriteBorder />} checkedIcon={<Favorite />} sx={{ color: pink[800], '&.Mui-checked': { color: pink[600], } }} /></p>
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <p>Runtime: {movie?.runtime} minutes Rating: {movie?.rating}/10</p>
+                                <p>Add to Watched? <Checkbox {...label} checked={checked} onChange={handleChange} icon={<FavoriteBorder />} checkedIcon={<Favorite />} sx={{ color: pink[800], '&.Mui-checked': { color: pink[600], } }} /></p>
+                                <p>{movie?.stars}</p>
                             </div>
                         </div>
                     </Box>
                 </Item>
+
                 <Item>
                     {props.user!=undefined && movie!=undefined? (<AddReview
                         currentUser={props.user}
@@ -179,6 +180,7 @@ function MoviePage(props: ILoginProps) {
                         movie={movie}
                         />):''}
                             </Item>
+
                 <Box sx={{ bgcolor: 'text.primary' }}>
                     <Item style={{ padding: 0 }}>
                         <Box sx={{ bgcolor: 'text.primary' }}>
@@ -187,7 +189,9 @@ function MoviePage(props: ILoginProps) {
                             {reviews?.map(x =>
                                 (<div key={x.id + 1}>
                                     <div className="cont1">
-                                        <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                        <Link to={`../profile/${x.authorUsername}`} style={{ color: "white", textDecoration: "none" }} >
+                                            <div className="avatar"><Avatar sx={{ bgcolor: deepPurple[500] }}>{x.authorUsername.charAt(0).toUpperCase()}</Avatar></div>
+                                        </Link>
                                         <div className="divider"></div>
                                         <div className="userReview" style={{ width: "60%" }}>
                                             <h5>Review by: <b>{x.authorUsername}</b></h5>

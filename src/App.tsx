@@ -11,6 +11,7 @@ import { Movie } from "./models/movie";
 import MoviePage from "./components/MoviePage/movie-page";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import Admin from "./components/Admin/Admin";
+import AltProfilePage from "./components/ProfilePage/AltProfilePage";
 
 function App() {
   const [user, setUser] = React.useState<User | undefined>(); //?? need to implement interface somehow. <IUser>
@@ -45,6 +46,7 @@ function App() {
             element={<Admin user={user} setUser={setUser} />}
           />   
           <Route path="dashboard" element={<Dashboard user={user} />} />
+          <Route path="profile/:username" element={<AltProfilePage />} />
           <Route path="profile" element={<ProfilePage user={user} setUser={setUser}/>} />
           <Route path="movies/:id" element={<MoviePage user={user} setUser={setUser} />} />
         </Routes>
