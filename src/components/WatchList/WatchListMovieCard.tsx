@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Movie } from './WatchListMain';
 import { makeStyles } from '@material-ui/core/styles';
 import SuperheroPic from '../../assets/superheroes-at-the-movies-min.jpeg';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
@@ -28,9 +29,11 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
         <Card className={classes.root}>
             <CardMedia className={classes.media} image={SuperheroPic} />
             <CardContent>
-                <Typography gutterBottom variant='h5'>
-                    Title: {movie.title}
-                </Typography>
+                <Link to={`../movies/${movie.id}`} style={{ textDecoration: "none", textAlign: "center" }}>
+                    <Typography gutterBottom variant='h5'>
+                        {movie.title}
+                    </Typography>
+                </Link>
                 <Typography gutterBottom color='textSecondary'>
                     Runtime: {movie.runtime}
                 <br />
