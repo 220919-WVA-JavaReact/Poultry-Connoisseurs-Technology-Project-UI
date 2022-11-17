@@ -6,6 +6,14 @@ export interface IUser {
     role: Role;
 }
 
+export interface UserProfile {
+    id: number;
+    username: string;
+    role: Role;
+    first: string;
+    last: string;
+}
+
 // export interface StateUser{
 //     IUser | undefined
 // }
@@ -21,14 +29,31 @@ export type UserType = {
     role: Role;
 }
 
+export class UserProfile {
+    id: number;
+    username: string;
+    role: Role;
+    first: string;
+    last: string;
+
+    constructor(id: number, username: string, role: Role, first: string, last: string) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+        this.first = first;
+        this.last = last;
+    }
+}
+
 export class User{
     id: number;
     username: string;
     role: Role;
 
-    constructor(id: number, username: string, role:Role){
+    constructor(id: number, username: string, role: Role) {
         this.id = id;
         this.username = username;
         this.role = role;
     }
+
 }
