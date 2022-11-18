@@ -258,6 +258,7 @@ const Admin = (props: ILoginProps) => {
                     variant="contained"
                     size="small"
                     color="secondary"
+                    onClick={() => navigate(`../profile/${x.username}`)}
                     fullWidth={x.role !== "CHICK" && x.role !== "EGG"}
                     className={
                       x.role !== "CHICK" && x.role !== "EGG"
