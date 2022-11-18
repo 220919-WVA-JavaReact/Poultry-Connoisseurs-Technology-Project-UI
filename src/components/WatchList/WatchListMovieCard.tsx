@@ -26,23 +26,26 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
-            <CardMedia className={classes.media} image={SuperheroPic} />
-            <CardContent>
-                <Link to={`../movies/${movie.id}`} style={{ textDecoration: "none", textAlign: "center" }}>
-                    <Typography gutterBottom variant='h5'>
-                        {movie.title}
-                    </Typography>
-                </Link>
-                <Typography gutterBottom color='textSecondary'>
-                    Runtime: {movie.runtime}
-                <br />
-                Stars: {movie.stars}
-                <br />
-                Rating: {movie.rating}
-                </Typography>
-            </CardContent>
-        </Card>
+      <Card className={classes.root}>
+        <CardMedia className={classes.media} image={`/assets/${movie.id}.jpg`} />
+        <CardContent>
+          <Link
+            to={`../movies/${movie.id}`}
+            style={{ textDecoration: "none", textAlign: "center" }}
+          >
+            <Typography gutterBottom variant="h5">
+              {movie.title}
+            </Typography>
+          </Link>
+          <Typography gutterBottom color="textSecondary">
+            Runtime: {movie.runtime}
+            <br />
+            Stars: {movie.stars}
+            <br />
+            Rating: {movie.rating}
+          </Typography>
+        </CardContent>
+      </Card>
     );
 };
 

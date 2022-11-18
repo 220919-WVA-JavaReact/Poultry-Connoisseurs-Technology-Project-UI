@@ -71,20 +71,23 @@ const WatchListMain = (props: ProfileUserProps) => {
     } else {
 
         return (
-            <>
-                <Dialog onClose={() => setIsDialogOpen(false)} open={isDialogOpen}>
-                    <MovieCard movie={activeMovie} />
-                </Dialog>
+          <>
+            <Dialog onClose={() => setIsDialogOpen(false)} open={isDialogOpen}>
+              <MovieCard movie={activeMovie} />
+            </Dialog>
 
-                <Slider {...SliderProps}>
-                    {data.map(movie => (
-                        <div key={movie.id} onClick={() => handleDialogOpen(movie)}>
-                            <img src={SuperheroImage} alt='Superheroes At The Movies' />
-                            <p style={{color: "whitesmoke"}}>{movie.title}</p>
-                        </div>
-                    ))}
-                </Slider>
-            </>
+            <Slider {...SliderProps}>
+              {data.map((movie) => (
+                <div key={movie.id} onClick={() => handleDialogOpen(movie)}>
+                  <img
+                    src={`/assets/${movie.id}.jpg`}
+                    alt="Superheroes At The Movies"
+                  />
+                  <p style={{ color: "whitesmoke" }}>{movie.title}</p>
+                </div>
+              ))}
+            </Slider>
+          </>
         );
     }
 };

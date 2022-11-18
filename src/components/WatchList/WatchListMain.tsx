@@ -73,10 +73,13 @@ const WatchListMain = (props: ProfileUserProps) => {
         </Dialog>
 
         <Slider {...SliderProps}>
-          {data.map(movie => (
+          {data.map((movie) => (
             <div key={movie.id} onClick={() => handleDialogOpen(movie)}>
-              <img src={SuperheroImage} alt='Superheroes At The Movies' />
-              <p style={{color: "whitesmoke"}}>{movie.title}</p>
+              <img
+                src={`/assets/${movie.id}.jpg`}
+                alt="Superheroes At The Movies"
+              />
+              <p style={{ color: "whitesmoke" }}>{movie.title}</p>
             </div>
           ))}
         </Slider>
